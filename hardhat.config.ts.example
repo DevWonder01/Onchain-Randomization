@@ -1,0 +1,166 @@
+// hardhat.config.ts
+
+import "dotenv/config";
+import "@nomiclabs/hardhat-etherscan";
+import "@nomiclabs/hardhat-solhint";
+import "@nomiclabs/hardhat-ethers";
+import "@nomiclabs/hardhat-waffle";
+import "@openzeppelin/hardhat-upgrades";
+import "hardhat-abi-exporter";
+import "hardhat-deploy";
+import "hardhat-deploy-ethers";
+import "hardhat-gas-reporter";
+import "hardhat-spdx-license-identifier";
+import "hardhat-typechain";
+import "hardhat-watcher";
+import "solidity-coverage";
+
+import { HardhatUserConfig } from "hardhat/types";
+
+
+const accountKey = [process.env.key];
+
+
+const config: HardhatUserConfig = {
+  abiExporter: {
+    path: "./abi",
+    clear: false,
+    flat: true,
+  },
+  solidity: {
+    compilers: [
+      {
+        version: "0.8.19",
+        settings: {
+          viaIR: true,
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+      {
+        version: "0.8.12",
+        settings: {
+          viaIR: true,
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+      {
+        version: "0.8.4",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+      {
+        version: "0.8.7",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+      {
+        version: "0.8.2",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+
+      {
+        version: "0.8.1",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+
+      {
+        version: "0.8.0",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+
+    ],
+  },
+  defaultNetwork: "hardhat",
+  etherscan: {
+    apiKey: process.env.basescankey,
+    customChains: [
+      {
+        network: "base",
+        chainId: 8453,
+        urls: {
+          apiURL: "https://api.basescan.org/api",
+          browserURL: "https://basescan.org",
+        },
+      },
+    ],
+  },
+  gasReporter: {
+    coinmarketcap: process.env.COINMARKETCAP_API_KEY,
+    currency: "USD",
+    enabled: process.env.REPORT_GAS === "true",
+    excludeContracts: ["contracts/mocks/", "contracts/libraries/"],
+  },
+  mocha: {
+    timeout: 20000,
+  },
+  networks: {
+    base: {
+      url: "https://base.llamarpc.com",
+      accounts: accountKey,
+      chainId: 8453,
+      live: true,
+      saveDeployments: true,
+      tags: ["staging"],
+      gasMultiplier: 2,
+      gas: "auto",
+      gasPrice: "auto",
+    },
+  },
+  paths: {
+    artifacts: "artifacts",
+    cache: "cache",
+    deploy: "deploy",
+    deployments: "deployments",
+    imports: "imports",
+    sources: "contracts",
+    tests: "test",
+  },
+
+  spdxLicenseIdentifier: {
+    overwrite: false,
+    runOnCompile: true,
+  },
+ 
+  typechain: {
+    outDir: "types",
+    target: "ethers-v5",
+  },
+  watcher: {
+    compile: {
+      tasks: ["compile"],
+      files: ["./contracts"],
+      verbose: true,
+    },
+  },
+};
+
+export default config;
