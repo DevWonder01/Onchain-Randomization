@@ -40,7 +40,7 @@ contract ChainlinkCoinFlip is VRFConsumerBaseV2Plus {
     ///// USE NEW KEYHASH FOR VRF 2.5 GAS LANE /////
     // For a list of available gas lanes on each network,
     // see https://docs.chain.link/vrf/v2-5/supported-networks
-    /// @notice this is base L2 key hash 👇  
+    /// @notice this is base L2 key hash 👇
     bytes32 keyHash =
         0xdc2f87677b01473c763cb0aee938ed3341512f6057324a584e5944e786144d70;
 
@@ -52,20 +52,18 @@ contract ChainlinkCoinFlip is VRFConsumerBaseV2Plus {
 
     constructor(
         uint256 subscriptionId
-    ) 
-    VRFConsumerBaseV2Plus(0xd5D517aBE5cF79B7e95eC98dB0f0277788aFF634) 
-    {
+    ) VRFConsumerBaseV2Plus(0xd5D517aBE5cF79B7e95eC98dB0f0277788aFF634) {
         s_subscriptionId = subscriptionId;
     }
 
-    function wager(bool face) external payable {
-        Bet memory bet = playWithVRF();
+    function playWithVRF(bool face) external payable {
+        Bet memory bet = _playWithVRF();
         coinTossBets[bet.id].face = face;
 
         emit PlaceBet(bet.id, bet.user, face);
     }
- 
-    function playWithVRF() internal returns (Bet memory) {
+
+    function _playWithVRF() internal returns (Bet memory) {
         uint256 requestId = s_vrfCoordinator.requestRandomWords(
             VRFV2PlusClient.RandomWordsRequest({
                 keyHash: keyHash,
@@ -73,6 +71,8 @@ contract ChainlinkCoinFlip is VRFConsumerBaseV2Plus {
                 requestConfirmations: requestConfirmations,
                 callbackGasLimit: callbackGasLimit,
                 numWords: numWords,
+                // native payment = false, means chainlink will charge user $LINK tokens (cheaper method)
+                // native payment = true, means chainlink will charge ETH 
                 extraArgs: VRFV2PlusClient._argsToBytes(
                     VRFV2PlusClient.ExtraArgsV1({nativePayment: false})
                 )
@@ -106,15 +106,11 @@ contract ChainlinkCoinFlip is VRFConsumerBaseV2Plus {
         if (rolledCoinSide == coinTossBet.face) {
             bet.resolved = true;
             bet.betStatus = true;
+            emit Roll(bet.id, bet.user, coinTossBet.face, rolledCoinSide);
         } else {
             bet.resolved = true;
             bet.betStatus = false;
-               emit Roll(
-                bet.id,
-                bet.user,
-                coinTossBet.face,
-                rolled
-            );
+            emit Roll(bet.id, bet.user, coinTossBet.face, rolledCoinSide);
         }
 
         emit Roll(bet.id, bet.user, coinTossBet.face, rolledCoinSide);

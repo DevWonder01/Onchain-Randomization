@@ -205,6 +205,11 @@
   {
     "inputs": [
       {
+        "internalType": "bool",
+        "name": "face",
+        "type": "bool"
+      },
+      {
         "internalType": "bytes32",
         "name": "userRandomNumber",
         "type": "bytes32"

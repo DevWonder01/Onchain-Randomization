@@ -27,7 +27,7 @@ interface PythCoinFlipInterface extends ethers.utils.Interface {
     "bets(uint256)": FunctionFragment;
     "coinTossBets(uint256)": FunctionFragment;
     "entropyProvider()": FunctionFragment;
-    "flipWithPyth(bytes32)": FunctionFragment;
+    "flipWithPyth(bool,bytes32)": FunctionFragment;
     "getBetData(uint256)": FunctionFragment;
     "getBetStatus(uint256)": FunctionFragment;
     "getFlipFee()": FunctionFragment;
@@ -50,7 +50,7 @@ interface PythCoinFlipInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "flipWithPyth",
-    values: [BytesLike]
+    values: [boolean, BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "getBetData",
@@ -184,11 +184,13 @@ export class PythCoinFlip extends Contract {
     "entropyProvider()"(overrides?: CallOverrides): Promise<[string]>;
 
     flipWithPyth(
+      face: boolean,
       userRandomNumber: BytesLike,
       overrides?: PayableOverrides
     ): Promise<ContractTransaction>;
 
-    "flipWithPyth(bytes32)"(
+    "flipWithPyth(bool,bytes32)"(
+      face: boolean,
       userRandomNumber: BytesLike,
       overrides?: PayableOverrides
     ): Promise<ContractTransaction>;
@@ -373,11 +375,13 @@ export class PythCoinFlip extends Contract {
   "entropyProvider()"(overrides?: CallOverrides): Promise<string>;
 
   flipWithPyth(
+    face: boolean,
     userRandomNumber: BytesLike,
     overrides?: PayableOverrides
   ): Promise<ContractTransaction>;
 
-  "flipWithPyth(bytes32)"(
+  "flipWithPyth(bool,bytes32)"(
+    face: boolean,
     userRandomNumber: BytesLike,
     overrides?: PayableOverrides
   ): Promise<ContractTransaction>;
@@ -531,11 +535,13 @@ export class PythCoinFlip extends Contract {
     "entropyProvider()"(overrides?: CallOverrides): Promise<string>;
 
     flipWithPyth(
+      face: boolean,
       userRandomNumber: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "flipWithPyth(bytes32)"(
+    "flipWithPyth(bool,bytes32)"(
+      face: boolean,
       userRandomNumber: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -681,11 +687,13 @@ export class PythCoinFlip extends Contract {
     "entropyProvider()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     flipWithPyth(
+      face: boolean,
       userRandomNumber: BytesLike,
       overrides?: PayableOverrides
     ): Promise<BigNumber>;
 
-    "flipWithPyth(bytes32)"(
+    "flipWithPyth(bool,bytes32)"(
+      face: boolean,
       userRandomNumber: BytesLike,
       overrides?: PayableOverrides
     ): Promise<BigNumber>;
@@ -770,11 +778,13 @@ export class PythCoinFlip extends Contract {
     ): Promise<PopulatedTransaction>;
 
     flipWithPyth(
+      face: boolean,
       userRandomNumber: BytesLike,
       overrides?: PayableOverrides
     ): Promise<PopulatedTransaction>;
 
-    "flipWithPyth(bytes32)"(
+    "flipWithPyth(bool,bytes32)"(
+      face: boolean,
       userRandomNumber: BytesLike,
       overrides?: PayableOverrides
     ): Promise<PopulatedTransaction>;

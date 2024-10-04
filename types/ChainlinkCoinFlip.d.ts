@@ -31,11 +31,11 @@ interface ChainlinkCoinFlipInterface extends ethers.utils.Interface {
     "getBetStatus(uint256)": FunctionFragment;
     "getUserBet(address,uint256)": FunctionFragment;
     "owner()": FunctionFragment;
+    "playWithVRF(bool)": FunctionFragment;
     "rawFulfillRandomWords(uint256,uint256[])": FunctionFragment;
     "s_vrfCoordinator()": FunctionFragment;
     "setCoordinator(address)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
-    "wager(bool)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -65,6 +65,10 @@ interface ChainlinkCoinFlipInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
+    functionFragment: "playWithVRF",
+    values: [boolean]
+  ): string;
+  encodeFunctionData(
     functionFragment: "rawFulfillRandomWords",
     values: [BigNumberish, BigNumberish[]]
   ): string;
@@ -80,7 +84,6 @@ interface ChainlinkCoinFlipInterface extends ethers.utils.Interface {
     functionFragment: "transferOwnership",
     values: [string]
   ): string;
-  encodeFunctionData(functionFragment: "wager", values: [boolean]): string;
 
   decodeFunctionResult(
     functionFragment: "acceptOwnership",
@@ -103,6 +106,10 @@ interface ChainlinkCoinFlipInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "getUserBet", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "playWithVRF",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "rawFulfillRandomWords",
     data: BytesLike
   ): Result;
@@ -118,7 +125,6 @@ interface ChainlinkCoinFlipInterface extends ethers.utils.Interface {
     functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "wager", data: BytesLike): Result;
 
   events: {
     "CoordinatorSet(address)": EventFragment;
@@ -309,6 +315,16 @@ export class ChainlinkCoinFlip extends Contract {
 
     "owner()"(overrides?: CallOverrides): Promise<[string]>;
 
+    playWithVRF(
+      face: boolean,
+      overrides?: PayableOverrides
+    ): Promise<ContractTransaction>;
+
+    "playWithVRF(bool)"(
+      face: boolean,
+      overrides?: PayableOverrides
+    ): Promise<ContractTransaction>;
+
     rawFulfillRandomWords(
       requestId: BigNumberish,
       randomWords: BigNumberish[],
@@ -343,16 +359,6 @@ export class ChainlinkCoinFlip extends Contract {
     "transferOwnership(address)"(
       to: string,
       overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    wager(
-      face: boolean,
-      overrides?: PayableOverrides
-    ): Promise<ContractTransaction>;
-
-    "wager(bool)"(
-      face: boolean,
-      overrides?: PayableOverrides
     ): Promise<ContractTransaction>;
   };
 
@@ -489,6 +495,16 @@ export class ChainlinkCoinFlip extends Contract {
 
   "owner()"(overrides?: CallOverrides): Promise<string>;
 
+  playWithVRF(
+    face: boolean,
+    overrides?: PayableOverrides
+  ): Promise<ContractTransaction>;
+
+  "playWithVRF(bool)"(
+    face: boolean,
+    overrides?: PayableOverrides
+  ): Promise<ContractTransaction>;
+
   rawFulfillRandomWords(
     requestId: BigNumberish,
     randomWords: BigNumberish[],
@@ -523,16 +539,6 @@ export class ChainlinkCoinFlip extends Contract {
   "transferOwnership(address)"(
     to: string,
     overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  wager(
-    face: boolean,
-    overrides?: PayableOverrides
-  ): Promise<ContractTransaction>;
-
-  "wager(bool)"(
-    face: boolean,
-    overrides?: PayableOverrides
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -669,6 +675,13 @@ export class ChainlinkCoinFlip extends Contract {
 
     "owner()"(overrides?: CallOverrides): Promise<string>;
 
+    playWithVRF(face: boolean, overrides?: CallOverrides): Promise<void>;
+
+    "playWithVRF(bool)"(
+      face: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     rawFulfillRandomWords(
       requestId: BigNumberish,
       randomWords: BigNumberish[],
@@ -701,10 +714,6 @@ export class ChainlinkCoinFlip extends Contract {
       to: string,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    wager(face: boolean, overrides?: CallOverrides): Promise<void>;
-
-    "wager(bool)"(face: boolean, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
@@ -781,6 +790,16 @@ export class ChainlinkCoinFlip extends Contract {
 
     "owner()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+    playWithVRF(
+      face: boolean,
+      overrides?: PayableOverrides
+    ): Promise<BigNumber>;
+
+    "playWithVRF(bool)"(
+      face: boolean,
+      overrides?: PayableOverrides
+    ): Promise<BigNumber>;
+
     rawFulfillRandomWords(
       requestId: BigNumberish,
       randomWords: BigNumberish[],
@@ -812,13 +831,6 @@ export class ChainlinkCoinFlip extends Contract {
     "transferOwnership(address)"(
       to: string,
       overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    wager(face: boolean, overrides?: PayableOverrides): Promise<BigNumber>;
-
-    "wager(bool)"(
-      face: boolean,
-      overrides?: PayableOverrides
     ): Promise<BigNumber>;
   };
 
@@ -889,6 +901,16 @@ export class ChainlinkCoinFlip extends Contract {
 
     "owner()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    playWithVRF(
+      face: boolean,
+      overrides?: PayableOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "playWithVRF(bool)"(
+      face: boolean,
+      overrides?: PayableOverrides
+    ): Promise<PopulatedTransaction>;
+
     rawFulfillRandomWords(
       requestId: BigNumberish,
       randomWords: BigNumberish[],
@@ -925,16 +947,6 @@ export class ChainlinkCoinFlip extends Contract {
     "transferOwnership(address)"(
       to: string,
       overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    wager(
-      face: boolean,
-      overrides?: PayableOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "wager(bool)"(
-      face: boolean,
-      overrides?: PayableOverrides
     ): Promise<PopulatedTransaction>;
   };
 }

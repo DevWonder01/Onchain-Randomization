@@ -398,6 +398,19 @@
   {
     "inputs": [
       {
+        "internalType": "bool",
+        "name": "face",
+        "type": "bool"
+      }
+    ],
+    "name": "playWithVRF",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "requestId",
         "type": "uint256"
@@ -450,19 +463,6 @@
     "name": "transferOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bool",
-        "name": "face",
-        "type": "bool"
-      }
-    ],
-    "name": "wager",
-    "outputs": [],
-    "stateMutability": "payable",
     "type": "function"
   }
 ]

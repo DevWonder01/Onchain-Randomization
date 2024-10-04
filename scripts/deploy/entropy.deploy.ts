@@ -40,9 +40,13 @@ const flip = async(addy :string)=>{
 
   // visit https://docs.pyth.network/entropy/current-fees 
   // to get msg.value (fee) requried per blockchain
+  const fee = 159000000000000n
+
+  // head = true, tail = false
+  const face = true
   const _r = await hex()
-  await d.flipWithPyth(_r,{
-    value: "159000000000000"
+  await d.flipWithPyth(face,_r,{
+    value: fee
   })
 
 }
