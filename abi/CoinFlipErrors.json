@@ -1,0 +1,12 @@
+[
+  {
+    "inputs": [],
+    "name": "IncorrectSender",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InsufficientFee",
+    "type": "error"
+  }
+]

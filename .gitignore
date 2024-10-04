@@ -1,0 +1,24 @@
+node_modules
+.env
+env
+envsp
+coverage
+coverage.json
+typechain
+typechain-types
+
+abi/
+artifacts/
+cache/
+coverage/
+exports/
+node_modules/
+types/
+package-lock.json
+# Hardhat files
+cache
+artifacts
+
+hardhat.config.ts
+
+/hardhat.config.ts
